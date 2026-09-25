@@ -42,7 +42,14 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        run: |
+          # android-actions/setup-android@v3 内部会执行 `sdkmanager tools`，而 Google
+          # 已将 tools 包从仓库下架，导致该 action 必然失败。本构建不需要任何 SDK 组件
+          # （download-sdk-debian.sh 已整体注释），只需要一个 SDK 目录供
+          # nttld/setup-ndk 的 link-to-sdk 写入 ndk/ 链接，以及 Symlink SDK 步骤引用。
+          mkdir -p /github/home/.android/sdk
+          echo "ANDROID_HOME=/github/home/.android/sdk" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=/github/home/.android/sdk" >> "$GITHUB_ENV"
       - uses: nttld/setup-ndk@v1
         with:
           link-to-sdk: true

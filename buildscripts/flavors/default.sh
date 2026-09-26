@@ -225,6 +225,7 @@ sed -i -e 's/#define FFMPEG_CONFIGURATION.*/#define FFMPEG_CONFIGURATION ""/' ..
 	\
 	--enable-filter=dynaudnorm \
 	--enable-filter=loudnorm \
+	--enable-filter=aresample \
 	\
 	--enable-filter=alimiter \
 	--enable-filter=acompressor \

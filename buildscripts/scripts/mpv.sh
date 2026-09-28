@@ -25,7 +25,7 @@ meson setup $build --cross-file "$prefix_dir"/crossfile.txt \
 	-Dgpl=false \
 	-Dlibmpv=true \
 	-Dbuild-date=false \
- 	-Dlua=disabled \
+ 	-Dlua=enabled \
  	-Dcplayer=false \
 	-Diconv=disabled \
 	-Dvulkan=enabled \

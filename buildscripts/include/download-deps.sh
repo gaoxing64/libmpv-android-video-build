@@ -86,6 +86,13 @@ if [ ! -d libass ]; then
 fi
 verify_sha libass $sha_libass
 
+# lua
+if [ ! -d lua ]; then
+	mkdir lua
+	$WGET https://www.lua.org/ftp/lua-$v_lua.tar.gz -O - | \
+		tar -xz -C lua --strip-components=1
+fi
+
 # lcms2
 if [ ! -d lcms2 ]; then
 	git clone --depth 1 -b $v_lcms2 https://github.com/mm2/Little-CMS.git lcms2

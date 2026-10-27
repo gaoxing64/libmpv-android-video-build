@@ -23,8 +23,10 @@ CI：`.github/workflows/build.yaml`（PR、push main、workflow_dispatch）。
 | TC-A-03 | 同上 | 对 4 个 ABI 重复 TC-A-02 | 每个 jar 都含两个 .so |
 | TC-A-04 | 解包 .so | `llvm-readelf -l libmpv.so` | LOAD 段对齐 ≥ 16KB |
 | TC-A-05 | 解包 .so | `llvm-readelf -d libmpv.so` | 无 `liblua/libass/libplacebo` 外部依赖（静态链接） |
-| TC-A-06 | 滤镜 | `strings libmpv.so \| grep -E 'loudnorm\|aresample'` | 命中；缺失视为滤镜未编入 |
-| TC-A-07 | Lua | `strings libmpv.so \| grep -i lua` | 有 Lua 符号 |
+| TC-A-06 | 滤镜 | `sh buildscripts/verify_libmpv_artifacts.sh <libmpv.so> --config-log <ffbuild/config.log>` | loudnorm/aresample/alimiter/acompressor 均 PASS |
+| TC-A-07 | Lua/stats.lua | 同上，检查 `display-stats-toggle`、`display-page-1-toggle` | 均 PASS（stats.lua 内置；应用 OSD 依赖分页开关绑定） |
+| TC-A-06b | 编解码器 | 同上，检查 `h264`/`hevc`/`av1`/`libdav1d` | 均 PASS |
+| TC-A-06c | AV1 parser | 同上，查 configure 日志 `--enable-parser=av1` | PASS；二进制里 av1 与解码器同名，只能查日志 |
 | TC-A-08 | ABI | `llvm-readelf -h` 检查 Machine | arm64-v8a=AArch64；armeabi-v7a=ARM；x86_64=X86-64 |
 | TC-A-09 | 真机 | 装 media-kit 示例，播放 HLS/FLV 直播 | 首帧出现、有声音、硬解生效 |
 | TC-A-10 | 真机 | 切换清晰度/线路 | 不黑屏、不崩溃；helper 注入 JavaVM 成功 |

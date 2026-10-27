@@ -104,5 +104,5 @@ done
 
 # 编解码器/滤镜/Lua 是编译期能力，jar 里缺了要到真机才发现；构建时就断言。
 # AV1 parser 在二进制里与解码器同名（都是 "av1"），改查 ffmpeg 的 configure 日志。
-sh verify_libmpv_artifacts.sh --config-log deps/ffmpeg/_build-arm64/config.log \
+sh verify_libmpv_artifacts.sh --config-log deps/ffmpeg/_build-arm64/ffbuild/config.log \
 	prefix/arm64-v8a/usr/local/lib/libmpv.so "android-arm64-v8a"

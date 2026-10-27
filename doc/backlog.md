@@ -9,7 +9,7 @@
 | ID | 现象 | 证据 | 建议 |
 | --- | --- | --- | --- |
 | P0-1 | jar 缺 `libmediakitandroidhelper.so` 时硬解/输出初始化失败，表现为黑屏无声 | `bundle_default.sh:103-110`；`c83800c` | 保留打包后断言；release 前抽查 jar 内容 |
-| P0-2 | 音量均衡依赖定制 ffmpeg；替换成上游库则滤镜静默失效 | `flavors/default.sh:226-231`、`9d4241b` | media-kit 更新 jar 时校验 `loudnorm/aresample` |
+| P0-2 | 音量均衡依赖定制 ffmpeg；替换成上游库则滤镜静默失效 | `flavors/default.sh:226-231`、`9d4241b` | media-kit 更新 jar 时校验 `loudnorm/aresample`；构建时由 `verify_libmpv_artifacts.sh` 断言 |
 | P0-3 | 16KB page size 不满足会导致 Android 15 设备无法加载 | `build.sh:54`、`56f1981` | 每次 NDK 升级后检查 `.so` 段对齐 |
 
 ## P1 — 构建脆弱点
